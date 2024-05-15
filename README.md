@@ -13,7 +13,7 @@ You need [OpenAI API key](https://platform.openai.com/api-keys) .
 ```
 export API_KEY=<>
 
-./file-go-openai_macos_arm64 -h
+./file-go-openai -h
 Options:
   -f, --file <path>/<file>  Path to the file to be reviewed [required]
   -m, --message <string>    Message to OpenAI model [required]
