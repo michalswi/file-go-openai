@@ -14,10 +14,6 @@ import (
 )
 
 func main() {
-	apiKeys := os.Getenv("API_KEYS")
-	if apiKeys == "" {
-		log.Fatal("Please set the API_KEYS environment variable to your OpenAI API key")
-	}
 
 	var filePath string
 	var message string
@@ -41,6 +37,11 @@ func main() {
 		fmt.Fprintf(os.Stderr, "%s", strings.Join(h, "\n"))
 	}
 	flag.Parse()
+
+	apiKeys := os.Getenv("API_KEYS")
+	if apiKeys == "" {
+		log.Fatal("Please set the API_KEYS environment variable to your OpenAI API key")
+	}
 
 	resp, err := getOpenAIResponse(apiKeys, filePath, message)
 	if err != nil {
