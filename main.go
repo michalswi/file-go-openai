@@ -20,29 +20,29 @@ func main() {
 	}
 
 	var filePath string
-	var question string
+	var message string
 	var saveToFile bool
 
 	flag.StringVar(&filePath, "f", "", "Path to the file to be reviewed")
 	flag.StringVar(&filePath, "file", "", "Path to the file to be reviewed")
-	flag.StringVar(&question, "q", "", "Question to openai model")
-	flag.StringVar(&question, "question", "", "Question to openai model")
+	flag.StringVar(&message, "q", "", "Message to OpenAI model")
+	flag.StringVar(&message, "message", "", "Message to OpenAI model")
 	flag.BoolVar(&saveToFile, "o", false, "Save file's review output to a file")
 	flag.BoolVar(&saveToFile, "out", false, "Save file's review output to a file")
 
 	flag.Usage = func() {
 		h := []string{
 			"Options:",
-			"  -f, --file <path>/<file>  Path to the file to be reviewed",
-			"  -q, --question <string>   Question to openai model",
-			"  -o, --out                 Save file's review output to a file",
+			"  -f, --file <path>/<file>  Path to the file to be reviewed [required]",
+			"  -m, --message <string>    Message to OpenAI model [required]",
+			"  -o, --out                 Save file's review output to a file [optional]",
 			"\n",
 		}
 		fmt.Fprintf(os.Stderr, "%s", strings.Join(h, "\n"))
 	}
 	flag.Parse()
 
-	resp, err := getOpenAIResponse(apiKeys, filePath, question)
+	resp, err := getOpenAIResponse(apiKeys, filePath, message)
 	if err != nil {
 		log.Fatalf("OpenAI review failed: %v\n", err)
 	}
@@ -58,7 +58,7 @@ func main() {
 
 // getOpenAIResponse reads the file at the given path, sends its content to the OpenAI API
 // along with the provided question, and returns the API's response.
-func getOpenAIResponse(apiKeys string, filePath string, question string) (resp openai.ChatCompletionResponse, err error) {
+func getOpenAIResponse(apiKeys string, filePath string, message string) (resp openai.ChatCompletionResponse, err error) {
 	content, err := os.ReadFile(filePath)
 	if err != nil {
 		log.Printf("Failed to read file: %v\n", err)
@@ -79,7 +79,7 @@ func getOpenAIResponse(apiKeys string, filePath string, question string) (resp o
 					Role: openai.ChatMessageRoleUser,
 					Content: fmt.Sprintf(
 						"%s: %s",
-						question,
+						message,
 						content),
 				},
 			},
