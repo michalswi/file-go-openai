@@ -9,6 +9,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/michalswi/color"
 	openai "github.com/sashabaranov/go-openai"
 )
 
@@ -49,8 +50,8 @@ func main() {
 	if saveToFile {
 		writeReview(resp, filePath)
 	} else {
-		comment := fmt.Sprintf("ChatGPT's review base on `%s` file:\n %s", filePath, resp.Choices[0].Message.Content)
-		fmt.Println(comment)
+		fmt.Println(color.Format(color.GREEN, fmt.Sprintf("ChatGPT's review base on `%s` file:", filePath)))
+		fmt.Println(color.Format(color.YELLOW, resp.Choices[0].Message.Content))
 	}
 
 }
@@ -64,7 +65,7 @@ func getOpenAIResponse(apiKeys string, filePath string, question string) (resp o
 		return
 	}
 
-	fmt.Println("OpenAI review started..")
+	fmt.Println(color.Format(color.GREEN, "OpenAI review started.."))
 	openaiClient := openai.NewClient(apiKeys)
 
 	resp, err = openaiClient.CreateChatCompletion(
@@ -72,6 +73,7 @@ func getOpenAIResponse(apiKeys string, filePath string, question string) (resp o
 		openai.ChatCompletionRequest{
 			// https://pkg.go.dev/github.com/sashabaranov/go-openai@v1.23.0#pkg-constants
 			Model: openai.GPT4,
+			// Model: openai.GPT4Turbo,
 			Messages: []openai.ChatCompletionMessage{
 				{
 					Role: openai.ChatMessageRoleUser,
@@ -99,7 +101,7 @@ func getOpenAIResponse(apiKeys string, filePath string, question string) (resp o
 func writeReview(resp openai.ChatCompletionResponse, filePath string) {
 	reader := bufio.NewReader(os.Stdin)
 	reviewFile := filePath + "_review"
-	fmt.Printf("Saving review to file: %s\n", reviewFile)
+	fmt.Println(color.Format(color.GREEN, fmt.Sprintf("Saving review to file: %s", reviewFile)))
 	_, err := os.Stat(reviewFile)
 	if err == nil {
 		fmt.Printf("File %s already exist, overwrite it? [Y,n]: ", reviewFile)
@@ -114,17 +116,17 @@ func writeReview(resp openai.ChatCompletionResponse, filePath string) {
 			return
 		case "y":
 			writeToFile(reviewFile, resp.Choices[0].Message.Content)
-			fmt.Printf("Review saved to file: %s\n", reviewFile)
+			fmt.Println(color.Format(color.GREEN, fmt.Sprintf("Review saved to file: %s", reviewFile)))
 		case "Y":
 			writeToFile(reviewFile, resp.Choices[0].Message.Content)
-			fmt.Printf("Review saved to file: %s\n", reviewFile)
+			fmt.Println(color.Format(color.GREEN, fmt.Sprintf("Review saved to file: %s", reviewFile)))
 		default:
 			writeToFile(reviewFile, resp.Choices[0].Message.Content)
-			fmt.Printf("Review saved to file: %s\n", reviewFile)
+			fmt.Println(color.Format(color.GREEN, fmt.Sprintf("Review saved to file: %s", reviewFile)))
 		}
 	} else {
 		writeToFile(reviewFile, resp.Choices[0].Message.Content)
-		fmt.Printf("Review saved to file: %s\n", reviewFile)
+		fmt.Println(color.Format(color.GREEN, fmt.Sprintf("Review saved to file: %s", reviewFile)))
 	}
 }
 
