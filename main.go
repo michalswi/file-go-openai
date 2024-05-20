@@ -21,7 +21,7 @@ func main() {
 
 	flag.StringVar(&filePath, "f", "", "Path to the file to be reviewed")
 	flag.StringVar(&filePath, "file", "", "Path to the file to be reviewed")
-	flag.StringVar(&message, "q", "", "Message to OpenAI model")
+	flag.StringVar(&message, "m", "", "Message to OpenAI model")
 	flag.StringVar(&message, "message", "", "Message to OpenAI model")
 	flag.BoolVar(&saveToFile, "o", false, "Save file's review output to a file")
 	flag.BoolVar(&saveToFile, "out", false, "Save file's review output to a file")
@@ -38,9 +38,9 @@ func main() {
 	}
 	flag.Parse()
 
-	apiKeys := os.Getenv("API_KEYS")
+	apiKeys := os.Getenv("API_KEY")
 	if apiKeys == "" {
-		log.Fatal("Please set the API_KEYS environment variable to your OpenAI API key")
+		log.Fatal("Please set the API_KEY environment variable to your OpenAI API")
 	}
 
 	resp, err := getOpenAIResponse(apiKeys, filePath, message)
