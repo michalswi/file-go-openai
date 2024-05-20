@@ -11,7 +11,7 @@ OpenAI in version **GPT-4.0** .
 You need [OpenAI API key](https://platform.openai.com/api-keys) .
 
 ```
-export API_KEY=<>
+export API_KEYS=<>
 
 ./file-go-openai -h
 Options:
