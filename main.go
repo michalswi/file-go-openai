@@ -5,12 +5,18 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"io"
 	"log"
+	"net/http"
 	"os"
 	"strings"
 
 	"github.com/michalswi/color"
 	openai "github.com/sashabaranov/go-openai"
+)
+
+const (
+	patternURL = "https://raw.githubusercontent.com/michalswi/file-go-openai/b53d2fddac134740ba73f8c33c730812bcdd1164/patterns/%s/pattern.md"
 )
 
 func main() {
@@ -19,6 +25,7 @@ func main() {
 	var message string
 	var pattern string
 	var saveToFile bool
+	var inputQuery string
 
 	flag.StringVar(&filePath, "f", "", "Path to the file to be reviewed")
 	flag.StringVar(&filePath, "file", "", "Path to the file to be reviewed")
@@ -48,9 +55,24 @@ func main() {
 	}
 
 	// todo
-	// - message OR pattern
-	// - download pattern string
-	resp, err := getOpenAIResponse(apiKeys, filePath, message)
+	if message == "" && pattern == "" {
+		log.Fatal("Please provide a message or pattern name")
+	} else {
+		if message != "" && pattern == "" {
+			inputQuery = message
+		}
+		if message == "" && pattern != "" {
+			resp, err := getPattern(pattern)
+			if err != nil {
+				log.Fatalf("Couldn't get pattern: %v\n", err)
+			}
+			inputQuery = resp
+		}
+	}
+
+	// todo
+	// fmt.Println(inputQuery)
+	resp, err := getOpenAIResponse(apiKeys, filePath, inputQuery)
 	if err != nil {
 		log.Fatalf("OpenAI review failed: %v\n", err)
 	}
@@ -61,7 +83,6 @@ func main() {
 		fmt.Println(color.Format(color.GREEN, fmt.Sprintf("ChatGPT's review base on `%s` file:", filePath)))
 		fmt.Println(color.Format(color.YELLOW, resp.Choices[0].Message.Content))
 	}
-
 }
 
 // getOpenAIResponse reads the file at the given path, sends its content to the OpenAI API
@@ -108,7 +129,7 @@ func getOpenAIResponse(apiKeys string, filePath string, message string) (resp op
 // OpenAI response to the file.
 func writeReview(resp openai.ChatCompletionResponse, filePath string) {
 	reader := bufio.NewReader(os.Stdin)
-	reviewFile := filePath + "_review"
+	reviewFile := filePath + "_rev"
 	fmt.Println(color.Format(color.GREEN, fmt.Sprintf("Saving review to file: %s", reviewFile)))
 	_, err := os.Stat(reviewFile)
 	if err == nil {
@@ -146,4 +167,24 @@ func writeToFile(reviewFile string, content string) {
 		log.Fatalf("Write review to file failed: %v\n", err)
 		return
 	}
+}
+
+// getPattern is a function that retrieves a specific pattern from a remote server.
+// It takes a single argument, patternName, which is a string representing the name of the pattern to retrieve.
+func getPattern(patternName string) (string, error) {
+	resp, err := http.Get(fmt.Sprintf(patternURL, patternName))
+	if err != nil {
+		return "", fmt.Errorf("can't read pattern URL: %v", err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return "", fmt.Errorf("received response code %d", resp.StatusCode)
+	}
+
+	data, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return "", fmt.Errorf("can't read pattern URL: %v", err)
+	}
+	return string(data), nil
 }
