@@ -17,12 +17,15 @@ func main() {
 
 	var filePath string
 	var message string
+	var pattern string
 	var saveToFile bool
 
 	flag.StringVar(&filePath, "f", "", "Path to the file to be reviewed")
 	flag.StringVar(&filePath, "file", "", "Path to the file to be reviewed")
 	flag.StringVar(&message, "m", "", "Message to OpenAI model")
 	flag.StringVar(&message, "message", "", "Message to OpenAI model")
+	flag.StringVar(&pattern, "p", "", "Pattern name")
+	flag.StringVar(&pattern, "pattern", "", "Pattern name")
 	flag.BoolVar(&saveToFile, "o", false, "Save file's review output to a file")
 	flag.BoolVar(&saveToFile, "out", false, "Save file's review output to a file")
 
@@ -30,7 +33,8 @@ func main() {
 		h := []string{
 			"Options:",
 			"  -f, --file <path>/<file>  Path to the file to be reviewed [required]",
-			"  -m, --message <string>    Message to OpenAI model [required]",
+			"  -m, --message <string>    Message to OpenAI model [required OR use '-p']",
+			"  -p, --pattern <string>    Pattern name [required OR use '-m']",
 			"  -o, --out                 Save file's review output to a file [optional]",
 			"\n",
 		}
@@ -43,6 +47,9 @@ func main() {
 		log.Fatal("Please set the API_KEY environment variable to your OpenAI API")
 	}
 
+	// todo
+	// - message OR pattern
+	// - download pattern string
 	resp, err := getOpenAIResponse(apiKeys, filePath, message)
 	if err != nil {
 		log.Fatalf("OpenAI review failed: %v\n", err)
