@@ -16,7 +16,7 @@ import (
 )
 
 const (
-	patternURL = "https://raw.githubusercontent.com/michalswi/file-go-openai/b53d2fddac134740ba73f8c33c730812bcdd1164/patterns/%s/pattern.md"
+	patternURL = "https://raw.githubusercontent.com/michalswi/file-go-openai/b53d2fddac134740ba73f8c33c730812bcdd1164/patterns/%s/pattern"
 )
 
 func main() {
