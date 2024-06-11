@@ -16,8 +16,7 @@ import (
 )
 
 const (
-	// patternURL  = "https://raw.githubusercontent.com/michalswi/file-go-openai/main/patterns/"
-	patternURL  = "https://raw.githubusercontent.com/michalswi/file-go-openai/9e296019be689d7dbca5f3faf3f65798d51c7807/patterns/"
+	patternURL  = "https://raw.githubusercontent.com/michalswi/file-go-openai/main/patterns/"
 	patternFile = "pattern"
 	// https://pkg.go.dev/github.com/sashabaranov/go-openai@v1.23.0#pkg-constants
 	openAImodel = openai.GPT3Dot5Turbo
