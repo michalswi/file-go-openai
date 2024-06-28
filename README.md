@@ -6,7 +6,7 @@
 ![](https://img.shields.io/github/last-commit/michalswi/file-go-openai)
 ![](https://img.shields.io/github/release/michalswi/file-go-openai)
 
-OpenAI in version **gpt-3.5-turbo** (more TPMs)
+OpenAI model version used **gpt-3.5-turbo**
 
 You need [OpenAI API key](https://platform.openai.com/api-keys) .
 
@@ -19,6 +19,7 @@ Options:
   -m, --message <string>    Message to OpenAI model [required OR use '-p']
   -p, --pattern <string>    Pattern name [required OR use '-m']
   -o, --out                 Save file's review output to a file [optional]
+  -v, --version             Display OpenAI model version
 ```
 
 ### **IMPORTANT**  
