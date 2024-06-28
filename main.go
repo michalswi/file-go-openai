@@ -31,6 +31,7 @@ func main() {
 	var pattern string
 	var saveToFile bool
 	var inputQuery string
+	var oaiVersion bool
 
 	flag.StringVar(&filePath, "f", "", "Path to the file to be reviewed")
 	flag.StringVar(&filePath, "file", "", "Path to the file to be reviewed")
@@ -40,6 +41,8 @@ func main() {
 	flag.StringVar(&pattern, "pattern", "", "Pattern name")
 	flag.BoolVar(&saveToFile, "o", false, "Save file's review output to a file")
 	flag.BoolVar(&saveToFile, "out", false, "Save file's review output to a file")
+	flag.BoolVar(&oaiVersion, "v", false, "Display OpenAI model version")
+	flag.BoolVar(&oaiVersion, "version", false, "Display OpenAI model version")
 
 	flag.Usage = func() {
 		h := []string{
@@ -48,15 +51,21 @@ func main() {
 			"  -m, --message <string>    Message to OpenAI model [required OR use '-p']",
 			"  -p, --pattern <string>    Pattern name [required OR use '-m']",
 			"  -o, --out                 Save file's review output to a file [optional]",
+			"  -v, --version             Display OpenAI model version",
 			"\n",
 		}
 		fmt.Fprintf(os.Stderr, "%s", strings.Join(h, "\n"))
 	}
 	flag.Parse()
 
+	if oaiVersion {
+		fmt.Println(openAImodel)
+		os.Exit(0)
+	}
+
 	apiKeys := os.Getenv("API_KEY")
 	if apiKeys == "" {
-		log.Fatal("Please set the API_KEY environment variable to your OpenAI API")
+		log.Fatal("Please set the API_KEY env variable to your OpenAI API account")
 	}
 
 	if message == "" && pattern == "" {
