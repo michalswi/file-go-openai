@@ -21,9 +21,9 @@ Options:
   -o, --out                 Save file's review output to a file [optional]
 ```
 
-**IMPORTANT**  
+### **IMPORTANT**  
 
-For OpenAI in version **GPT-4.0** .
+For example for OpenAI in version **GPT-4.0** .
 
 If you encounter such error, it's because there are some API limitations.
 ```
@@ -34,3 +34,32 @@ More about **Rate limits** for **tier-1** you can find [here](https://platform.o
 ### \# pattern's list
 
 [analyze_requests_init](./patterns/analyze_requests_init/README.md)
+
+
+### \# example usage
+
+#### > analyze and display review
+```
+./file-go-openai \
+-f /tmp/input.log \
+-m "please list all uniq Request lines in one section and uniq User-Agent lines in separate section."
+```
+
+#### > analyze and save review to a file
+```
+./file-go-openai \
+-f /tmp/input.log \
+-m "please list all uniq Request lines in one section and uniq User-Agent lines in separate section." \
+-o
+```
+
+#### > analyze based on defined pattern and save review to a file
+
+Patterns can be find [here](./patterns/) .
+
+```
+./file-go-openai \
+-f /tmp/input.log \
+-p analyze_requests_init \
+-o
+```
