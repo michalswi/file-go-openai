@@ -32,6 +32,9 @@ Request too large for gpt-4 in organization <org> on tokens per min (TPM): Limit
 ```
 More about **Rate limits** for **tier-1** you can find [here](https://platform.openai.com/docs/guides/rate-limits/usage-tiers?context=tier-one). In **tier-1** for GPT-4, TPM is 10,000. You might be using different tier than tier-1 e.g. free, tier-2 etc. where TPM values are different.
 
+What are **tokens** and how to **count** them you can find [here](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them) .
+
+
 ### \# pattern's list
 
 [analyze_requests_init](./patterns/analyze_requests_init/README.md)
