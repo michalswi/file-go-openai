@@ -19,7 +19,8 @@ const (
 	patternURL  = "https://raw.githubusercontent.com/michalswi/file-go-openai/main/patterns/"
 	patternFile = "pattern"
 	// https://pkg.go.dev/github.com/sashabaranov/go-openai#pkg-constants
-	openAImodel   = openai.GPT3Dot5Turbo
+	openAImodel = openai.GPT4oMini
+	// openAImodel   = openai.GPT3Dot5Turbo
 	reviewFileExt = "_rev"
 )
 

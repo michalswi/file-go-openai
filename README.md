@@ -6,7 +6,7 @@
 ![](https://img.shields.io/github/last-commit/michalswi/file-go-openai)
 ![](https://img.shields.io/github/release/michalswi/file-go-openai)
 
-OpenAI model version used **gpt-3.5-turbo**
+OpenAI model version used **gpt-4o-mini**
 
 You need [OpenAI API key](https://platform.openai.com/api-keys) .
 
