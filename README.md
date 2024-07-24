@@ -38,6 +38,7 @@ What are **tokens** and how to **count** them you can find [here](https://help.o
 ### \# pattern's list
 
 [analyze_requests_init](./patterns/analyze_requests_init/README.md)
+[analyze_html](./patterns/analyze_html/README.md)
 
 
 ### \# example usage
