@@ -16,7 +16,8 @@ import (
 )
 
 const (
-	patternURL  = "https://raw.githubusercontent.com/michalswi/file-go-openai/main/patterns/"
+	patternURL = "https://raw.githubusercontent.com/michalswi/file-go-openai/main/patterns/"
+	// patternURL = "https://raw.githubusercontent.com/michalswi/file-go-openai/dev/patterns/"
 	patternFile = "pattern"
 	// https://pkg.go.dev/github.com/sashabaranov/go-openai#pkg-constants
 	openAImodel = openai.GPT4oMini
