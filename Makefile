@@ -1,7 +1,7 @@
 GOLANG_VERSION := 1.22.1
 
 APP_NAME := file-go-openai
-APP_VERSION := 0.3.3
+APP_VERSION := 0.3.4
 
 .DEFAULT_GOAL := help
 .PHONY: build_mac build_linux
