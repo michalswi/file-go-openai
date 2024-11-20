@@ -1,4 +1,4 @@
 github.com/michalswi/color v0.0.0-20240313114906-30322e31716c h1:5y2AjaSFubUn/8e9Y7+BV5e3gqXaZnuFqa215pV5nx8=
 github.com/michalswi/color v0.0.0-20240313114906-30322e31716c/go.mod h1:K16T4Rh7Rqm3VPgL025ts2QOZNJq2NG98gMj9b1CBjU=
-github.com/sashabaranov/go-openai v1.27.0 h1:L3hO6650YUbKrbGUC6yCjsUluhKZ9h1/jcgbTItI8Mo=
-github.com/sashabaranov/go-openai v1.27.0/go.mod h1:lj5b/K+zjTSFxVLijLSTDZuP7adOgerWeFyZLUhAKRg=
+github.com/sashabaranov/go-openai v1.35.6 h1:oi0rwCvyxMxgFALDGnyqFTyCJm6n72OnEG3sybIFR0g=
+github.com/sashabaranov/go-openai v1.35.6/go.mod h1:lj5b/K+zjTSFxVLijLSTDZuP7adOgerWeFyZLUhAKRg=
