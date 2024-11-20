@@ -1,2 +1,4 @@
 file-go-openai*
 __*
+*_rev
+*.sha*

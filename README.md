@@ -14,12 +14,27 @@ You need [OpenAI API key](https://platform.openai.com/api-keys) .
 export API_KEY=<>
 
 ./file-go-openai -h
-Options:
-  -f, --file <path>/<file>  Path to the file to be reviewed [required]
-  -m, --message <string>    Message to OpenAI model [required OR use '-p']
-  -p, --pattern <string>    Pattern name [required OR use '-m']
-  -o, --out                 Save file's review output to a file [optional]
-  -v, --version             Display OpenAI model version
+Usage: ./file-go-openai [options]
+  -f string
+    	Path to the file to be reviewed [required]
+  -file string
+    	Path to the file to be reviewed [required]
+  -m string
+    	Message to OpenAI model [required OR use '-p']
+  -message string
+    	Message to OpenAI model [required OR use '-p']
+  -o	Save file's review output to a file [optional]
+  -out
+    	Save file's review output to a file [optional]
+  -p string
+    	Pattern name
+  -pattern string
+    	Pattern name
+  -rag
+    	Enable Retrieval-Augmented Generation (RAG) [optional]
+  -v	Display OpenAI model version
+  -version
+    	Display OpenAI model version
 ```
 
 ### **IMPORTANT**  
@@ -67,4 +82,31 @@ Patterns can be find [here](./patterns/) .
 -f /tmp/input.log \
 -p analyze_requests_init \
 -o
+```
+
+### RAG [work in progress]
+
+Very simple RAG implementation. RAG files (.txt based) are [here](./ragdata/).
+
+```
+> without 'rag'
+
+$ ./file-go-openai \
+-f /tmp/input.log \
+-m "tell me more about michalswi in one sentence"
+OpenAI review started..
+ChatGPT's review base on `/tmp/input.log` file:
+As of my knowledge cutoff in October 2023, there isn't widely available information about "michalswi." Could you provide more context or specify where you encountered this name?
+```
+
+```
+> with 'rag'
+
+$ ./file-go-openai \
+-f /tmp/input.log \
+-m "tell me more about michalswi in one sentence" \
+--rag
+OpenAI review started..
+ChatGPT's review base on `/tmp/input.log` file:
+Michalswi is a GitHub repository owner and developer known for managing multiple repositories and contributing to various open-source projects, which can be explored on his [GitHub profile](https://github.com/michalswi).
 ```
