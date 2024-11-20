@@ -24,8 +24,8 @@ const (
 	// openAImodel = openai.GPT4oMini
 	reviewFileExt = "_rev"
 	filePerm      = 0644
-	// ragDataSource = "https://raw.githubusercontent.com/michalswi/file-go-openai/main/ragdata/"
-	ragDataSource = "https://raw.githubusercontent.com/michalswi/file-go-openai/dev/ragdata/"
+	ragDataSource = "https://raw.githubusercontent.com/michalswi/file-go-openai/main/ragdata/"
+	// ragDataSource = "https://raw.githubusercontent.com/michalswi/file-go-openai/dev/ragdata/"
 )
 
 var ragKeywords = []string{"ai", "michalswi"}
